@@ -37,5 +37,6 @@ jobs:
           with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
             changelog-file: "CHANGELOG.md"
-          run: |
-            cat CHANGELOG.md
+
+        - name: Show Changelog
+          run: cat CHANGELOG.md
