@@ -36,4 +36,5 @@ jobs:
           id: semrel
           with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
-            changelog-file: true
+            changelog-file: "CHANGELOG.md"
+            prepend: true
