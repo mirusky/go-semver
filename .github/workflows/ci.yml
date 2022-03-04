@@ -35,7 +35,7 @@ jobs:
         - uses: go-semantic-release/action@v1
           id: semrel
           with:
-            update-file: "CHANGELOG.md"
             github-token: ${{ secrets.GITHUB_TOKEN }}
             changelog-file: "CHANGELOG.md"
-            prepend: true
+          run: |
+            cat CHANGELOG.md
