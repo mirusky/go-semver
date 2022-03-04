@@ -3,40 +3,39 @@ name: ci
 on:
   push:
     branches:
-    - master
+      - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    
-    - name: Setup Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: '1.17.0'
-    
-    - name: Install dependencies
-      run: |
-        go version
-        go mod download
-        
-    - name: Run build
-      run: go build . 
+      - uses: actions/checkout@v3
+
+      - name: Setup Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: "1.17.0"
+
+      - name: Downloading Go Modules
+        run: |
+          go version
+          go mod download
+
+      - name: Build
+        run: go build .
 
   release:
-      runs-on: ubuntu-latest
-      needs: build
-      steps:
-        - uses: actions/checkout@v2
-        - uses: actions/setup-go@v2
-          with:
-            go-version: '1.17.0'
-        - uses: go-semantic-release/action@v1
-          id: semrel
-          with:
-            github-token: ${{ secrets.GITHUB_TOKEN }}
-            changelog-file: "CHANGELOG.md"
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v3
 
-        - name: Show Changelog
-          run: cat CHANGELOG.md
+      - uses: actions/setup-go@v3
+        with:
+          go-version: "1.17.0"
+
+      - uses: go-semantic-release/action@v1
+        id: semrel
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          changelog-file: "CHANGELOG.md"
